@@ -1,0 +1,26 @@
+
+.core-concepts{
+    background-color: #0f020f;
+    border-radius: 20px;
+    width: 60%;
+    margin: auto;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  .core-concepts-item{
+    max-height: 30vh;
+    width: 25%;
+  }
+  
+  .core-concepts-img{
+    width: 25%;
+    margin-bottom: -40px;
+  }
+  
+  .core-concepts ul{
+    list-style: none;
+    display: flex;
+  }
