@@ -2,7 +2,10 @@ import { formatter } from "../util/investment.js"
 
 export default function Result( { resultObj } ) {
 
-    const initialInvestment = resultObj[0].valueEndOfYear - resultObj[0].interest - resultObj[0].annualInvestment
+    let initialInvestment = 0;
+    if ( resultObj.length > 0 ) {
+        initialInvestment = resultObj[0].valueEndOfYear - resultObj[0].interest - resultObj[0].annualInvestment
+    }
 
     return(
         <table id="result" >

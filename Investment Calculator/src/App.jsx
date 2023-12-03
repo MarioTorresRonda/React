@@ -22,11 +22,9 @@ function App() {
     var updatedInputs = {...inputs, [field] : value };
      setInputs( prevInputs => updatedInputs );
      if ( Object.keys( updatedInputs ).length > 3 ) {
-      console.log( isSomeValueNull(updatedInputs) );
        if ( !isSomeValueNull(updatedInputs) ) {
           setResults( prevResults => { 
             let updatedResults = calculateInvestmentResults( updatedInputs );
-            console.log( updatedResults )
             return updatedResults
           } )
       }

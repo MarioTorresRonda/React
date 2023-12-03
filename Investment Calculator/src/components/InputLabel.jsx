@@ -10,7 +10,7 @@ export default function InputGroup( { title, field, onChange } ) {
     }
 
     return (
-        <div>
+        <div key={field} >
             <label> {title} </label>
             <input type="number" required value={value} onChange={handleChange} />
         </div>
