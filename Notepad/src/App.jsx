@@ -1,4 +1,5 @@
-import React from "react";
+
+import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import DefaultPage from "./components/DefaultPage";
 import CreateProject from "./components/CreateProject";
@@ -6,18 +7,27 @@ import CreateProject from "./components/CreateProject";
 function App() {
 
   const DefaultPageVar = <DefaultPage onOpenProject={openProject} />
-  const CreateProjectVar = <CreateProject onCancel={openDefaultPage} />
+  const CreateProjectVar = <CreateProject onCancel={openDefaultPage} onSave={saveProject} />
 
-  const [ projects, setProjects ] = React.useState([{ name: "prueba", descripcion: "patata", fecha: "2023/12/11", id: 1 }, { name: "prueba 2", descripcion: "patata", fecha: "2023/12/11", id: 2 }])
-  const [ mainPage, setMainPage ] = React.useState( DefaultPageVar );
+  const [ projects, setProjects ] = useState([{ name: "prueba", descripcion: "patata", fecha: "2023/12/11", id: 1 }, { name: "prueba 2", descripcion: "patata", fecha: "2023/12/11", id: 2 }])
+  const [ mainPage, setMainPage ] = useState( DefaultPageVar );
 
   function openProject() {
     setMainPage( CreateProjectVar );
   }
 
+  function saveProject( newProject ) {
+      setProjects( prevProjects => {
+        return [...prevProjects, newProject];
+      } )
+      setMainPage( DefaultPageVar );
+  }
+
   function openDefaultPage() {
     setMainPage( DefaultPageVar );
   }
+
+  console.log( projects )
 
   return (
     <main className="h-screen my-8 flex gap-8">
