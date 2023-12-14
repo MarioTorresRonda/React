@@ -1,4 +1,5 @@
 export default function DefaultPage( { onOpenProject } ) {
+
     return(
         <main className="w-2/3 mt-36 text-center">
             <img className="h-20 mx-auto" src="logo.png" ></img>

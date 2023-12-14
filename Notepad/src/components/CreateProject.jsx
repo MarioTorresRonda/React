@@ -1,9 +1,9 @@
 import InputLabel from "./InputLabel";
 import { useState } from "react";
 
-export default function CreateProject( { onCancel, onSave } ) {
+export default function CreateProject( { onCancel, onSave, id } ) {
 
-    const[ form, setForm ] = useState({});
+    const[ form, setForm ] = useState({ name: "", descripcion: "", fecha: "", id: id });
 
     function updateForm( field, value ) {
         setForm( prevForm => {
