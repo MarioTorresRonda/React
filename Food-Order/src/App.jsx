@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Meals from "./components/Meals";
 import { fetchMeals } from "./http";
 import { useFetch } from './hooks/useFetch.js';
+import CartContextProvider from "./store/cart-context.jsx";
 
 
 function App() {
@@ -15,10 +16,10 @@ function App() {
   } = useFetch( fetchMeals, [] );
 
   return (
-    <>
+    <CartContextProvider>
       <Header />
       <Meals meals={meals} />
-    </>
+    </CartContextProvider>
   );
 }
 
