@@ -5,8 +5,8 @@ import { useFetch } from '../hooks/useFetch.js';
 
 export const CartContext = createContext({
     items: [],
-    addItemToCart: () => {},
-    onUpdateCartItemQuantity : () => {}
+    addItemToCart: (id) => {},
+    onUpdateCartItemQuantity : (id, quantity) => {}
 });
 
 function cartReducer(state, action) {
@@ -35,6 +35,25 @@ function cartReducer(state, action) {
         return {
             items: updatedItems,
         };
+    }else if ( action.type == "UPDATE" ) {
+        const updatedItems = [ ...state.items ];
+        const CartItemIndex = updatedItems.findIndex( (item) => item.id == action.payload.id );
+        const CartItem = {
+            ...updatedItems[CartItemIndex],
+        };
+
+        if ( CartItem ) {
+            CartItem.quantity += action.payload.quantity;
+            if ( CartItem.quantity <= 0 ) {
+                updatedItems.splice( CartItemIndex, 1 );
+            }else{
+                updatedItems[CartItemIndex] = CartItem;
+            }
+        }
+
+        return {
+            items: updatedItems,
+        };
     }
 
     return state;
@@ -58,8 +77,14 @@ export default function CartContextProvider( {children} ) {
         }) 
     }
 
-    function updateItemQuantity() {
-
+    function updateItemQuantity( id, quantity ) {
+        cartDispatch({
+            type: "UPDATE",
+            payload : {
+                id,
+                quantity
+            }
+        }) 
     }
 
     const ctxValue = {

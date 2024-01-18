@@ -1,29 +1,15 @@
 import { useRef, useImperativeHandle, forwardRef, useContext } from "react";
 import { CartContext } from "../store/cart-context"
+import Modal from "./Modal";
 import CartItem from "./CartItem";
-const CartModal = forwardRef( function Modal( {}, ref ) {
+
+export default function CartModal( { modal } ) {
     const { items } = useContext( CartContext )
-    const modal = useRef();
 
     const total = items.reduce( (accumulator, currentValue) => accumulator + ( Number(currentValue.price) *  Number(currentValue.quantity) ), 0 );
 
-    useImperativeHandle(ref, () => {
-      return {
-        open: () => {
-          modal.current.showModal();
-        },
-        close: () => {
-          modal.current.close();
-        }
-      };
-    });
-
-    function handleOnClose() {
-      modal.current.close();
-    }
-
     return ( 
-    <dialog className="cart modal" ref={modal} >
+    <Modal ref={modal}>
         <h2> Your Cart </h2>
         <ul>
         { items.map( (item) =>
@@ -34,11 +20,9 @@ const CartModal = forwardRef( function Modal( {}, ref ) {
           ${total}
         </p>
         <div className="modal-actions">
-          <button onClick={handleOnClose} className="text-button"> Close </button>
+          <button onClick={() => { modal.current.close()} } className="text-button"> Close </button>
           <button className="button"> Go to Checkout </button>
         </div>
-    </dialog> 
+    </Modal>
     );
-} );
-
-export default CartModal;
+};

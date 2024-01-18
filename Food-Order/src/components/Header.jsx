@@ -20,8 +20,7 @@ export default function Header() {
         <button className='text-button' onClick={handleOpenModal} >
             Cart( {items.length} )
         </button>
-        <CartModal ref={modal} />
-
+        <CartModal modal={modal} />
     </div> 
     )
 }
