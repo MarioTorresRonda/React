@@ -5,8 +5,10 @@ import { useFetch } from '../hooks/useFetch.js';
 
 export const CartContext = createContext({
     items: [],
+    total: 0,
     addItemToCart: (id) => {},
-    onUpdateCartItemQuantity : (id, quantity) => {}
+    onUpdateCartItemQuantity : (id, quantity) => {},
+    clearItems: () => {}
 });
 
 function cartReducer(state, action) {
@@ -34,6 +36,7 @@ function cartReducer(state, action) {
 
         return {
             items: updatedItems,
+            total: updatedItems.reduce( (accumulator, currentValue) => accumulator + ( Number(currentValue.price) *  Number(currentValue.quantity) ), 0 )
         };
     }else if ( action.type == "UPDATE" ) {
         const updatedItems = [ ...state.items ];
@@ -53,7 +56,13 @@ function cartReducer(state, action) {
 
         return {
             items: updatedItems,
+            total: updatedItems.reduce( (accumulator, currentValue) => accumulator + ( Number(currentValue.price) *  Number(currentValue.quantity) ), 0 )
         };
+    }else if ( action.type == "DELETE" ) {
+        return {
+            items : [],
+            total : 0
+        }
     }
 
     return state;
@@ -87,13 +96,20 @@ export default function CartContextProvider( {children} ) {
         }) 
     }
 
-    const ctxValue = {
-        items: cartState.items,
-        addItemToCart : addItem,
-        onUpdateCartItemQuantity : updateItemQuantity
+    function clearItems() {
+        cartDispatch({
+            type: "DELETE",
+            payload : {}
+        })
     }
 
-    console.log( ctxValue );
+    const ctxValue = {
+        items: cartState.items,
+        total: cartState.total,
+        addItemToCart : addItem,
+        onUpdateCartItemQuantity : updateItemQuantity,
+        clearItems: clearItems
+    }
 
     return <CartContext.Provider value={ctxValue}>
         {children}

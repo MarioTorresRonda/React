@@ -1,14 +1,24 @@
 import logoHeaderImg from '../assets/logo.jpg';
 import CartModal from './CartModal';
-import { useRef, useImperativeHandle, forwardRef, useContext } from 'react';
+import { useRef, useContext } from 'react';
 import { CartContext } from "../store/cart-context"
+import FormModal from './FormModal';
+
+
+
 export default function Header() {
 
     const { items } = useContext( CartContext )
-    const modal = useRef();
+    const cartModal = useRef();
+    const formModal = useRef();    
 
-    function handleOpenModal() {
-        modal.current.open();
+    function handleOpenCartModal() {
+        cartModal.current.open();
+    }
+
+    function handleOpenFormModal() {
+        cartModal.current.close();
+        formModal.current.open();
     }
 
     return ( 
@@ -17,10 +27,11 @@ export default function Header() {
             <img src={logoHeaderImg} />
             <h1> REACTFOOD </h1>
         </div>
-        <button className='text-button' onClick={handleOpenModal} >
+        <button className='text-button' onClick={handleOpenCartModal} >
             Cart( {items.length} )
         </button>
-        <CartModal modal={modal} />
+        <CartModal modal={cartModal} onSubmit={handleOpenFormModal} />
+        <FormModal modal={formModal} />
     </div> 
     )
 }

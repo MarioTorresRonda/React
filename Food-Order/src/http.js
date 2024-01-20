@@ -8,3 +8,21 @@ export async function fetchMeals() {
 
     return resData;
 }
+
+export async function uploadOrder( order ) {
+    const response = await fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        body: JSON.stringify( {order} ),
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    })
+
+    const resData = await response.json();
+    if ( !response.ok ) {
+        throw new Error( resData.message );
+    }
+
+    return resData;
+
+}
