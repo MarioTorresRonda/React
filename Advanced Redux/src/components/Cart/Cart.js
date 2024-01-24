@@ -7,7 +7,7 @@ const Cart = (props) => {
 
 
   const items = useSelector( (state) => state.cart.items );
-  const shown = useSelector( (state) => state.cart.shown )
+  const shown = useSelector( (state) => state.UI.shown )
 
   return (
     <>
