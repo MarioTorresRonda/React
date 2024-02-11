@@ -1,0 +1,5 @@
+{
+    "editor.fontFamily": "Fira Code Retina",
+    "editor.fontWeight": "450", // Retina !! Only works with FiraCode-VF.ttf installed, see below when using separated font files (the normal case).
+    "editor.fontLigatures": true,
+}
