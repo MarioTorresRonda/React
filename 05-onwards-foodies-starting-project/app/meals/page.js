@@ -9,6 +9,11 @@ async function Meals() {
 	return <MealsGrid meals={meals} />;
 }
 
+export const metadata =  {
+	title: 'All Meals',
+	description: 'browse the delicious meals shared by the comunnity.',
+}
+
 export default function MealsPage() {
 	return (
 		<>
